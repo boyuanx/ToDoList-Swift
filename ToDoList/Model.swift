@@ -11,14 +11,18 @@ import IGListDiffKit
 
 class Model {
     private var UID = UUID().uuidString
-    private var title = String()
+    private(set) var title = String()
     
     init(title: String) {
         self.title = title
     }
 }
 
-extension Model: ListDiffable {
+extension Model: ListDiffable, Equatable {
+    
+    static func == (lhs: Model, rhs: Model) -> Bool {
+        return lhs.UID == rhs.UID
+    }
     
     func diffIdentifier() -> NSObjectProtocol {
         return UID as NSString

@@ -9,18 +9,16 @@
 import Foundation
 import IGListKit
 
-class ModelDataSource: NSObject, ListAdapterDataSource {
+class ToDoDataSource: NSObject, ListAdapterDataSource {
     
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return [
-            Model(title: "Jack"),
-            Model(title: "John"),
-            Model(title: "Coronavirus")
-        ]
+        return Global.shared.data
     }
     
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return ModelSectionController()
+        let SC = ToDoSectionController()
+        SC.adapter = listAdapter
+        return SC
     }
     
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
