@@ -8,11 +8,12 @@
 
 import UIKit
 import YogaKit
+import MaterialComponents
 
 class ToDoCollectionViewCell: UICollectionViewCell {
     
     private let titleLabel = UILabel()
-    private let deleteButton = UIButton()
+    private let deleteButton = MDCButton()
     weak var delegate: ToDoCellDeleteDelegate?
     var currentModel: Model!
     
@@ -48,6 +49,7 @@ class ToDoCollectionViewCell: UICollectionViewCell {
 extension ToDoCollectionViewCell {
         
     func initUI() {
+        contentView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
         titleLabel.textColor = .black
         deleteButton.setTitle("Delete", for: .normal)
         deleteButton.addTarget(self, action: #selector(deleteData), for: .touchUpInside)
