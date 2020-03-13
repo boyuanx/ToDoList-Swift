@@ -28,7 +28,7 @@ class ToDoViewController: UIViewController {
         let alertController = MDCAlertController(title: "Add Item", message: nil)
         let textField = UITextField()
         textField.backgroundColor = .secondarySystemFill
-        alertController.backgroundColor = .tertiarySystemFill
+        alertController.backgroundColor = .lightGray
         alertController.accessoryView = textField
         alertController.addAction(MDCAlertAction(title: "OK", handler: { [weak self] (action) in
             if let text = textField.text {
