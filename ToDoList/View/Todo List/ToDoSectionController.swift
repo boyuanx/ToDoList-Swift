@@ -8,21 +8,18 @@
 
 import Foundation
 import IGListKit
+import SwipeCellKit
 
-protocol ToDoCellDeleteDelegate: class {
-    func delete(model: Model)
-}
-
-class ToDoSectionController: ListSectionController, ToDoCellDeleteDelegate {
+class ToDoSectionController: ListSectionController, SwipeCollectionViewCellDelegate {
     
-    var currentModel: Model?
+    var currentPost: Post?
     weak var adapter: ListAdapter?
     
     override func didUpdate(to object: Any) {
-        guard let model = object as? Model else {
+        guard let post = object as? Post else {
             return
         }
-        currentModel = model
+        currentPost = post
     }
     
     override func numberOfItems() -> Int {
@@ -30,7 +27,7 @@ class ToDoSectionController: ListSectionController, ToDoCellDeleteDelegate {
     }
     
     override func cellForItem(at index: Int) -> UICollectionViewCell {
-        guard let context = collectionContext, let model = currentModel else {
+        guard let context = collectionContext, let post = currentPost else {
             return UICollectionViewCell()
         }
         let cell = context.dequeueReusableCell(of: ToDoCollectionViewCell.self, for: self, at: index)
@@ -38,17 +35,28 @@ class ToDoSectionController: ListSectionController, ToDoCellDeleteDelegate {
             return cell
         }
         todoCell.delegate = self
-        todoCell.currentModel = model
-        todoCell.setLabelText(text: model.title)
+        todoCell.titleLabel.text = post.name
+        todoCell.timestampLabel.text = post.date.description
+        todoCell.contentLabel.text = post.content
         return todoCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        let deleteAction = SwipeAction(style: .default, title: "Delete") { [weak self] (action, thisIndexPath) in
+            self?.delete(post: (self?.currentPost)!)
+        }
+        return [deleteAction]
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 50)
     }
     
-    func delete(model: Model) {
-        Global.shared.data = Global.shared.data.filter{ $0 != model }
+    func delete(post: Post) {
+        Global.shared.data = Global.shared.data.filter{ $0 != post }
         adapter?.performUpdates(animated: true, completion: nil)
     }
+    
+    
 }

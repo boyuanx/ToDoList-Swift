@@ -18,7 +18,7 @@ class ToDoDataSource: NSObject, ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let SC = ToDoSectionController()
         SC.adapter = listAdapter
-        SC.inset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        SC.inset = UIEdgeInsets(top: 1, left: 0, bottom: 0, right: 0)
         return SC
     }
     

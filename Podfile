@@ -8,6 +8,10 @@ target 'ToDoList' do
   pod 'IGListKit', '~> 4.0.0'
   pod 'MaterialComponents/Dialogs'
   pod 'MaterialComponents/Buttons'
+  pod 'SwipeCellKit'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Firestore'
+  pod 'SnapKit'
   # Pods for ToDoList
 
   target 'ToDoListTests' do

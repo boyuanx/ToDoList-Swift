@@ -25,22 +25,22 @@ class ToDoViewController: UIViewController {
     }
 
     @objc func addItemAction() {
-        let alertController = MDCAlertController(title: "Add Item", message: nil)
-        let textField = UITextField()
-        textField.backgroundColor = .secondarySystemFill
-        alertController.backgroundColor = .lightGray
-        alertController.accessoryView = textField
-        alertController.addAction(MDCAlertAction(title: "OK", handler: { [weak self] (action) in
-            if let text = textField.text {
-                if text.isEmpty {
-                    return
-                }
-                let newModel = Model(title: text)
-                Global.shared.data.append(newModel)
-                self?.adapter.performUpdates(animated: true, completion: nil)
-            }
-        }))
-        present(alertController, animated: true, completion: nil)
+//        let alertController = MDCAlertController(title: "Add Item", message: nil)
+//        let textField = UITextField()
+//        textField.backgroundColor = .secondarySystemFill
+//        alertController.backgroundColor = .lightGray
+//        alertController.accessoryView = textField
+//        alertController.addAction(MDCAlertAction(title: "OK", handler: { [weak self] (action) in
+//            if let text = textField.text {
+//                if text.isEmpty {
+//                    return
+//                }
+//                let newModel = Model(title: text)
+//                Global.shared.data.append(newModel)
+//                self?.adapter.performUpdates(animated: true, completion: nil)
+//            }
+//        }))
+//        present(alertController, animated: true, completion: nil)
     }
 
 }
@@ -50,7 +50,7 @@ extension ToDoViewController {
     
     // MARK: - Basic UI setup
     func initUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = "Todos"
         navigationItem.setRightBarButton(UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addItemAction)), animated: false)
     }
@@ -58,7 +58,7 @@ extension ToDoViewController {
     // MARK: - Collection View setup
     func initCollectionView() {
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.backgroundColor = .white
+        collectionView.alwaysBounceVertical = true
         view.addSubview(collectionView)
         // This can be massively simplified using DSLs such as SnapKit.
         collectionView.translatesAutoresizingMaskIntoConstraints = false
