@@ -19,15 +19,11 @@ class ToDoCollectionViewCell: SwipeCollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         initUI()
+        initLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        initLayout()
     }
     
 }

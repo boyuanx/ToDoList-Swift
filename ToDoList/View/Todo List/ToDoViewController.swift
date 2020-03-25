@@ -25,22 +25,7 @@ class ToDoViewController: UIViewController {
     }
 
     @objc func addItemAction() {
-//        let alertController = MDCAlertController(title: "Add Item", message: nil)
-//        let textField = UITextField()
-//        textField.backgroundColor = .secondarySystemFill
-//        alertController.backgroundColor = .lightGray
-//        alertController.accessoryView = textField
-//        alertController.addAction(MDCAlertAction(title: "OK", handler: { [weak self] (action) in
-//            if let text = textField.text {
-//                if text.isEmpty {
-//                    return
-//                }
-//                let newModel = Model(title: text)
-//                Global.shared.data.append(newModel)
-//                self?.adapter.performUpdates(animated: true, completion: nil)
-//            }
-//        }))
-//        present(alertController, animated: true, completion: nil)
+        navigationController?.pushViewController(NewTodoViewController(), animated: true)
     }
 
 }
@@ -57,8 +42,11 @@ extension ToDoViewController {
 
     // MARK: - Collection View setup
     func initCollectionView() {
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let flowLayout = UICollectionViewFlowLayout()
+        //flowLayout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .systemBackground
         view.addSubview(collectionView)
         // This can be massively simplified using DSLs such as SnapKit.
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,6 +66,7 @@ extension ToDoViewController {
     func initIGListKit() {
         adapter.collectionView = collectionView
         adapter.dataSource = dataSource
+        Global.shared.listAdapterDelegate = adapter
     }
     
 }

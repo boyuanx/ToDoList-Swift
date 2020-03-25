@@ -43,18 +43,22 @@ class ToDoSectionController: ListSectionController, SwipeCollectionViewCellDeleg
     
     func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-        let deleteAction = SwipeAction(style: .default, title: "Delete") { [weak self] (action, thisIndexPath) in
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] (action, thisIndexPath) in
             self?.delete(post: (self?.currentPost)!)
         }
         return [deleteAction]
     }
     
     override func sizeForItem(at index: Int) -> CGSize {
-        return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 50)
+        return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 100)
     }
     
     func delete(post: Post) {
-        Global.shared.data = Global.shared.data.filter{ $0 != post }
+        FirebaseService.shared.deletePost(post) { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+        }
         adapter?.performUpdates(animated: true, completion: nil)
     }
     

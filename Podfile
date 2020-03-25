@@ -12,6 +12,7 @@ target 'ToDoList' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Firestore'
   pod 'SnapKit'
+  pod 'UITextView+Placeholder'
   # Pods for ToDoList
 
   target 'ToDoListTests' do

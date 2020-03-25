@@ -16,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        FirebaseService.shared.startPostListener { (error) in
+            print(error?.localizedDescription ?? "nil ToDoDataSource:23")
+        }
         return true
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseFirestore
+import IGListKit
 
 class FirebaseService {
     
@@ -15,6 +16,7 @@ class FirebaseService {
     static let shared = FirebaseService()
     let postsRef = Firestore.firestore().collection("posts")
     var postsListener: ListenerRegistration!
+    
 }
 
 extension FirebaseService {
@@ -41,6 +43,12 @@ extension FirebaseService {
     
     func createPost(_ post: Post, completion: @escaping (Error?) -> Void) {
         postsRef.document().setData(post.getDictRepresentation()) { (error) in
+            completion(error)
+        }
+    }
+    
+    func deletePost(_ post: Post, completion: @escaping (Error?) -> Void) {
+        postsRef.document(post.documentId).delete { (error) in
             completion(error)
         }
     }

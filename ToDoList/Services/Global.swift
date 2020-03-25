@@ -7,12 +7,18 @@
 //
 
 import Foundation
+import IGListKit
 
 class Global {
     
     private init() {}
     static let shared = Global()
+    weak var listAdapterDelegate: ListAdapter?
     
-    var data = [Post]()
+    var data: [Post] = [Post]() {
+        didSet {
+            listAdapterDelegate?.performUpdates(animated: true, completion: nil)
+        }
+    }
     
 }
